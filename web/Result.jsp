@@ -5,7 +5,8 @@
 </head>
 <body>
 <div style="text-align: center;">
-    <h3><%=request.getAttribute("Message")%></h3>
+    <h3><%=request.getAttribute("Message")%>
+    </h3>
 </div>
 </body>
 </html>

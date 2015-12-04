@@ -1,46 +1,42 @@
 package servlets;
 
-import javax.mail.Authenticator;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
+import email.Email;
+
+import javax.mail.MessagingException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Properties;
+import java.io.PrintWriter;
 
 @WebServlet(name = "ServletLogin", value = "/login")
 public class ServletLogin extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
+        HttpSession session = request.getSession(true);
 
-        // sets SMTP server properties
-        Properties properties = new Properties();
-        properties.put("mail.smtp.host", "smtp.gmail.com");
-        properties.put("mail.smtp.port", "587");
-        properties.put("mail.smtp.auth", "true");
-        properties.put("mail.smtp.starttls.enable", "true");
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
 
-        // creates a new session with an authenticator
-        Authenticator auth = new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, password);
+        Email email = new Email();
+        RequestDispatcher dispatcher = null;
+        try {
+            if (email.successfulLogin(username, password)) {
+                session.setAttribute("username", username);
+                session.setAttribute("password", password);
+                dispatcher = request.getRequestDispatcher("EmailForm.html");
+                dispatcher.forward(request, response);
             }
-        };
-        Session session = Session.getInstance(properties, auth);
-
-        request.setAttribute("smtpSession", session);
-        request.setAttribute("username", username);
-
-        request.getRequestDispatcher("EmailForm.html").forward(request, response);
+        } catch (MessagingException e) {
+            out.println("<b>Incorrect login</b>");
+            dispatcher = request.getRequestDispatcher("index.html");
+            dispatcher.include(request, response);
+        }
     }
 }

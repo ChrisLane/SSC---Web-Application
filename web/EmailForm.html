@@ -3,27 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <title>Email Form</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+          integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+            integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+            crossorigin="anonymous"></script>
 </head>
 <body>
-<form action="sendEmail" method="post">
-    <table border="0" width="35%" align="center">
-        <caption><h2>Send New E-mail</h2></caption>
-        <tr>
-            <td width="50%">Recipient address</td>
-            <td><input type="text" name="recipient" size="50"/></td>
-        </tr>
-        <tr>
-            <td>Subject</td>
-            <td><input type="text" name="subject" size="50"/></td>
-        </tr>
-        <tr>
-            <td>Content</td>
-            <td><textarea rows="10" cols="39" name="content"></textarea></td>
-        </tr>
-        <tr>
-            <td colspan="2" align="center"><input type="submit" value="Send"/></td>
-        </tr>
-    </table>
-</form>
+<div class="container">
+    <div class="row">
+        <form role="form" action="sendEmail" method="post">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="InputRecipient">To</label>
+
+                    <div class="input-group">
+                        <input type="email" class="form-control" id="InputRecipient" name="InputRecipient"
+                               placeholder="Enter Email"
+                               required>
+                        <span class="input-group-addon"><i
+                                class="glyphicon glyphicon-ok form-control-feedback"></i></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="InputSubject">Subject</label>
+
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="InputSubject" id="InputSubject"
+                               placeholder="Enter Subject"
+                               required>
+                        <span class="input-group-addon"><i
+                                class="glyphicon glyphicon-ok form-control-feedback"></i></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="InputMessage">Message</label>
+
+                    <div class="input-group"
+                    >
+                        <textarea name="InputMessage" id="InputMessage" class="form-control" rows="5"
+                                  required></textarea>
+                        <span class="input-group-addon"><i
+                                class="glyphicon glyphicon-ok form-control-feedback"></i></span>
+                    </div>
+                </div>
+                <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info pull-right">
+            </div>
+        </form>
+    </div>
+</div>
 </body>
 </html>

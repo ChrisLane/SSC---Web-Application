@@ -1,39 +1,39 @@
 package servlets;
 
-import email.Emailer;
+import email.Email;
 
-import javax.mail.Session;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(name = "ServletSendEmail", value = "/sendEmail")
 public class ServletSendEmail extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // reads form fields
-        String recipient = request.getParameter("recipient");
-        String subject = request.getParameter("subject");
-        String content = request.getParameter("content");
+        HttpSession session = request.getSession();
+        String username = session.getAttribute("username").toString();
+        String password = session.getAttribute("password").toString();
 
-        String resultMessage = "";
+        String recipient = request.getParameter("InputRecipient");
+        String subject = request.getParameter("InputSubject");
+        String messageBody = request.getParameter("InputMessage");
 
-        try {
-            Emailer emailer = new Emailer((Session)request.getAttribute("session"), (String)request.getAttribute("username"));
-            emailer.sendEmail(recipient, subject, content);
-            resultMessage = "The e-mail was sent successfully";
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            resultMessage = "There were an error: " + ex.getMessage();
-        } finally {
-            request.setAttribute("Message", resultMessage);
-            request.getRequestDispatcher("Result.jsp").forward(request, response);
+        RequestDispatcher dispatcher = null;
+
+        Email email = new Email();
+
+        if (email.successfulEmail(username, password, recipient, subject, messageBody)) {
+            request.setAttribute("Message", "Your email was sent!");
+            dispatcher = request.getRequestDispatcher("Result.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            request.setAttribute("Message", "Your email failed to send :(");
+            dispatcher = request.getRequestDispatcher("Result.jsp");
+            dispatcher.include(request, response);
         }
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 }
