@@ -4,7 +4,7 @@
     <title>Email Client</title>
 </head>
 <body>
-<% if (session.getAttribute("username") == null) {
+<% if (session.getAttribute("username") == null | !request.isRequestedSessionIdValid()) {
     response.sendRedirect("login.html");
 } else {
     response.sendRedirect("EmailForm.html");

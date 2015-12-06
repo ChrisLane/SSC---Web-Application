@@ -7,7 +7,7 @@ import java.util.Properties;
 
 public class Email {
 
-    public boolean successfulLogin(String username, String password) {
+    public boolean successfulLogin(String username, String password) throws MessagingException {
         Properties props = System.getProperties();
         props.setProperty("mail.store.protocol", "imaps");
 
@@ -20,10 +20,10 @@ public class Email {
             Store store = session.getStore("imaps");
             store.connect("imap.googlemail.com", username, password);
             store.close();
-            return true;
-        } catch (MessagingException e) {
+        } catch (NoSuchProviderException e) {
             return false;
         }
+        return true;
     }
 
     public boolean successfulEmail(String username, String password, String recipient, String subject, String messageBody) {

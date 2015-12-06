@@ -35,7 +35,7 @@ public class ServletLogin extends HttpServlet {
             }
         } catch (MessagingException e) {
             out.println("<b>Incorrect login</b>");
-            dispatcher = request.getRequestDispatcher("index.html");
+            dispatcher = request.getRequestDispatcher("index.jsp");
             dispatcher.include(request, response);
         }
     }
