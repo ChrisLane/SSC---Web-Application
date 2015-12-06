@@ -1,4 +1,4 @@
-package email;
+package model.email;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;

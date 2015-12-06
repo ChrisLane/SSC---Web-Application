@@ -1,6 +1,6 @@
-package servlets;
+package control.servlets;
 
-import email.Email;
+import model.email.Email;
 
 import javax.mail.MessagingException;
 import javax.servlet.RequestDispatcher;
@@ -49,7 +49,7 @@ public class ServletLogin extends HttpServlet {
         } catch (MessagingException e) {
             // Report that we could not log in
             out.println("<b>Incorrect login</b>");
-            dispatcher = request.getRequestDispatcher("index.jsp");
+            dispatcher = request.getRequestDispatcher("login.html");
             dispatcher.include(request, response);
         }
     }

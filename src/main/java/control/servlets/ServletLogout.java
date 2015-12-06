@@ -1,4 +1,4 @@
-package servlets;
+package control.servlets;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,6 +23,8 @@ public class ServletLogout extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        session.removeAttribute("username");
+        session.removeAttribute("password");
         session.invalidate();
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");

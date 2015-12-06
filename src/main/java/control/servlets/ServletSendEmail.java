@@ -1,6 +1,6 @@
-package servlets;
+package control.servlets;
 
-import email.Email;
+import model.email.Email;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
