@@ -13,9 +13,21 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ * The type Servlet login.
+ */
 @WebServlet(name = "ServletLogin", value = "/login")
 public class ServletLogin extends HttpServlet {
+    /**
+     * Log the user in to their email account.
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Get the user inputted username and password
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
@@ -27,6 +39,7 @@ public class ServletLogin extends HttpServlet {
         Email email = new Email();
         RequestDispatcher dispatcher = null;
         try {
+            // If we can log in then set the username and password in the session
             if (email.successfulLogin(username, password)) {
                 session.setAttribute("username", username);
                 session.setAttribute("password", password);
@@ -34,6 +47,7 @@ public class ServletLogin extends HttpServlet {
                 dispatcher.forward(request, response);
             }
         } catch (MessagingException e) {
+            // Report that we could not log in
             out.println("<b>Incorrect login</b>");
             dispatcher = request.getRequestDispatcher("index.jsp");
             dispatcher.include(request, response);
