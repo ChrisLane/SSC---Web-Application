@@ -5,8 +5,10 @@
 </head>
 <body>
 <% if (session.getAttribute("username") == null | !request.isRequestedSessionIdValid()) {
+    // This is a new visitor! Send them to log in
     response.sendRedirect("login.html");
 } else {
+    // The user is already signed in, forward to email form
     response.sendRedirect("EmailForm.html");
 }%>
 </body>

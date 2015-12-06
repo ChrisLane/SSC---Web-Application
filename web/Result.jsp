@@ -24,10 +24,13 @@
     <div class="row">
         <div class="col-lg-6">
             <div style="text-align: center;">
+                <!-- The message displayed here will be set by the SendMail servlet -->
                 <h3><%=request.getAttribute("Message")%></h3>
                 <a class="btn btn-primary" href="EmailForm.html" role="button">Back</a>
             </div>
         </div>
+
+        <!-- Logout button -->
         <div class="col-lg-4">
             <form action="logout" method="post">
                 <input type="submit" name="logout" id="logout" value="Logout" class="btn btn-warning pull-right">
