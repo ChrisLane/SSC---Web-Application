@@ -27,15 +27,15 @@ public class ServletSendEmail extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Retrieve the username and password from the session
         HttpSession session = request.getSession();
-        String username = session.getAttribute("username").toString();
-        String password = session.getAttribute("password").toString();
+        String username = (String) session.getAttribute("username");
+        String password = (String) session.getAttribute("password");
 
         // Get the message details from the form
         String recipient = request.getParameter("InputRecipient");
         String subject = request.getParameter("InputSubject");
         String messageBody = request.getParameter("InputMessage");
 
-        RequestDispatcher dispatcher = null;
+        RequestDispatcher dispatcher;
 
         Email email = new Email();
 
